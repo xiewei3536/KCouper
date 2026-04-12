@@ -102,4 +102,4 @@ def query_single_produce():
 
     with open('single.js', 'w', encoding='utf-8') as fp:
         j_str = json.dumps(food_data, ensure_ascii=False)
-        fp.write(f'const SINGLE_DICT={j_str}')
+        fp.write(f'window.SINGLE_DICT={j_str}')

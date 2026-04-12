@@ -1,6 +1,77 @@
-# AGENTS.md - Development Guidelines for KCouper
+# PROJECT KNOWLEDGE BASE
 
-This document provides comprehensive guidelines for coding agents working on the KCouper project, a web application that collects and displays KFC coupon data from Taiwan's official API.
+**Generated:** 2026-04-13
+**Status:** Active Development
+**Stack:** React (Vite, TS, Shadcn/UI, Tailwind) + Python (Pipenv, Requests, BS4)
+
+## OVERVIEW
+KCouper is a web application that collects KFC coupon data from Taiwan's official API and displays it in a searchable, filterable interface. It features a Python backend for data scraping/processing and a modern React frontend for the UI.
+
+## STRUCTURE
+```
+kfc_coupon/
+├── script/            # Python backend (scraping & processing)
+│   ├── gatherer/      # Coupon and single product data collection
+│   ├── checker/       # Coupon existence verification
+│   └── kfc.py         # Main entry point for data collection
+├── src/               # React frontend (Vite + TypeScript)
+│   ├── components/    # UI components (shadcn/ui + custom)
+│   ├── hooks/         # Custom React hooks (useCoupons, useFavorites, etc.)
+│   ├── data/          # Static data and types
+│   └── main.tsx       # Frontend entry point
+├── public/            # Static assets and legacy JS files
+└── index.html         # Main HTML entry
+```
+
+## WHERE TO LOOK
+| Task | Location | Notes |
+|------|----------|-------|
+| Update coupon data | `script/kfc.py` | Run with `--mode main` or `--mode quick` |
+| UI components | `src/components/` | Custom components and shadcn/ui primitives |
+| State/Logic | `src/hooks/` | Business logic for filtering and favorites |
+| Data processing | `script/gatherer/` | API response to Coupon object conversion |
+| Styling | `src/index.css` | Tailwind config and global styles |
+
+## CODE MAP (Key Symbols)
+| Symbol | Type | Location | Role |
+|--------|------|----------|------|
+| `query_coupon` | Function | `script/gatherer/coupon.py` | Main scraping logic |
+| `useCoupons` | Hook | `src/hooks/useCoupons.ts` | Fetches and manages coupon state |
+| `CouponCard` | Component | `src/components/CouponCard.tsx` | Individual coupon display |
+| `CouponGrid` | Component | `src/components/CouponGrid.tsx` | Main layout for coupon list |
+| `api_caller` | Function | `script/utils.py` | Robust API requester with retries |
+
+## CONVENTIONS
+### Python Backend
+- **Naming**: snake_case for functions/variables, PascalCase for classes.
+- **Formatting**: PEP 8, 100 char line limit, 4 spaces indentation.
+- **Error Handling**: Log with `utils.LOG`. Retry 502s up to 10x.
+
+### React Frontend
+- **Components**: PascalCase, functional components with hooks.
+- **Hooks**: camelCase, `use` prefix.
+- **TypeScript**: Mandatory types/interfaces for all data structures.
+- **Styling**: Tailwind CSS classes (mobile-first).
+
+## COMMANDS
+### Backend
+```bash
+pipenv run python script/kfc.py --mode main   # Full update
+pipenv run python script/kfc.py --mode quick  # Quick update
+pylint script/                                # Lint Python
+```
+### Frontend
+```bash
+npm run dev     # Start dev server
+npm run build   # Build for production
+npm run lint    # Lint TS/React
+```
+
+## NOTES
+- **API Sensitivity**: KFC API is sensitive to request frequency; use `utils.api_caller` for delays.
+- **Data Persistence**: Favorites are stored in `localStorage`.
+- **Legacy Path**: Some legacy JS files exist in `public/v1/` for compatibility.
+
 
 ## Project Overview
 

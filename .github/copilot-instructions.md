@@ -1,4 +1,7 @@
-# KCouper Copilot Instructions
+---
+applyTo: '**'
+---
+# KCouper Development Instructions
 
 ## Architecture Overview
 KCouper is a web app that collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `js/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites.
@@ -18,12 +21,39 @@ Key components:
 - **Linting**: Run `pylint script/` for Python code style checks.
 
 ## Code Patterns & Conventions
-- **Data Structures**: Coupon objects include `items` array with `flavors` for variants (e.g., `convert_coupon_data` in `gatherer/coupon.py`).
-- **Frontend Functions**: Use `prepareInitData()` for initial render, `filterCouponsWithNames()` for search (supports "搜尋所有選項" for variant matching).
-- **Error Handling**: API retries up to 10 times on 502; skip invalid coupons with logging.
-- **Naming**: Normalize names by stripping parentheses (e.g., `normalize_name` in `gatherer/coupon.py`).
-- **Storage**: Favorites in `localStorage` as Set; coupon data in `COUPON_DICT` from `js/coupon.js`.
-- **Style**: Python PEP 8 (100 char lines, snake_case); JS camelCase with JSDoc; HTML/CSS semantic with Bootstrap.
+
+### Python Backend
+- **Naming**: snake_case for functions/variables, PascalCase for classes, UPPER_CASE for constants
+- **Formatting**: PEP 8, 100 char lines, 4 spaces indentation
+- **Error Handling**: API calls retry up to 10 times on 502 with 0.3s delays; log errors with context
+- **Data Structures**: Use normalize_name() to strip parentheses; convert_coupon_data() for structured Coupon objects
+
+### React Frontend (Modern)
+- **Components**: PascalCase, memo-wrapped for performance
+- **Hooks**: camelCase, use prefix (useCoupons, useFavorites)
+- **Variables**: camelCase, descriptive names
+- **Booleans**: is/has/show prefix (isLoading, showFavoritesOnly)
+- **Event Handlers**: on + ActionName (onSearchChange, onToggleFavorite)
+- **TypeScript**: Full type safety, JSDoc for legacy JS
+
+### Data Structures
+- **Coupon**: {name, product_code, coupon_code, items, start_date, end_date, price, original_price, discount}
+- **CouponItem**: {name, count, addition_price, flavors: [{name, addition_price}]}
+- **Storage**: Favorites as Set<number> in localStorage; coupon data in COUPON_DICT
+
+## Error Handling Patterns
+- **API Resilience**: Auto-retry 502 errors up to 10x with 30s backoff
+- **Data Validation**: Skip invalid coupons (message contains '無效的票劵' or starts with '此優惠代碼目前無法使用')
+- **Logging**: Central logger in utils.py; console logs in frontend
+- **User Feedback**: Toast notifications for errors; isLoading/error states
+
+## Styling Guidelines
+- **Tailwind CSS**: Mobile-first, custom colors via CSS variables
+- **Dark Mode**: next-themes with class-based toggle
+- **Components**: shadcn/ui on Radix UI primitives
+- **Responsive**: sm: breakpoint at 640px
+- **Icons**: lucide-react, consistent sizing
+- **Font**: Noto Sans TC for Chinese text
 
 ## Integration Points
 - **KFC API**: Calls via `utils.api_caller` with 0.3s delays; uses session from `init_session`.

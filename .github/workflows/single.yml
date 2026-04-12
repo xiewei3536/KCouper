@@ -27,12 +27,12 @@ jobs:
     - name: Run program in single mode and generate output
       run: |
         pipenv run python script/kfc.py --mode single
-        mv -f single.js js/single.js
+        mv -f single.js public/single.js
 
     - name: Commit and push changes
       uses: EndBug/add-and-commit@v9
       with:
-        add: 'js/single.js'
+        add: 'public/single.js'
         message: 'weekly update single product information'
         committer_name: GitHub Actions
         committer_email: 41898282+github-actions[bot]@users.noreply.github.com

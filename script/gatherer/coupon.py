@@ -142,7 +142,7 @@ def query_coupon(quick=False):
     if quick:
         with open('js/coupon.js', 'r', encoding='utf-8') as fp:
             content = fp.read()
-        json_str = content[len('const COUPON_DICT='):].strip()
+        json_str = content[len('window.COUPON_DICT='):].strip()
         old_dict = json.loads(json_str)
         coupon_by_code = old_dict.get('coupon_by_code', {})
 
@@ -194,4 +194,4 @@ def query_coupon(quick=False):
 
     with open('coupon.js', 'w', encoding='utf-8') as fp:
         j_str = json.dumps(coupon_dict, ensure_ascii=False)
-        fp.write(f'const COUPON_DICT={j_str}')
+        fp.write(f'window.COUPON_DICT={j_str}')
