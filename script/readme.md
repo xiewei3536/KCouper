@@ -37,7 +37,7 @@ Performs an incremental update similar to main mode but reuses valid existing co
    - `init_delivery_info()`: Calls `QueryDeliveryShops` and `QueryDeliveryTime`
 
 3. **Single Product Query**
-   - Queries individual products to collect standalone prices and outputs to `single.json` and `js/single.js`
+   - Queries individual products to collect standalone prices and outputs to `single.json` and `public/single.js`
 
 ### API Details
 

@@ -75,7 +75,7 @@ npm run lint    # Lint TS/React
 
 ## Project Overview
 
-KCouper is a web app that automatically collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `js/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites functionality.
+KCouper is a web app that automatically collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `public/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites functionality.
 
 ## Build, Lint, and Test Commands
 
@@ -116,7 +116,7 @@ pylint script/
 The project uses integration testing through the data collection scripts. No unit test framework is currently configured, but you can verify functionality by:
 
 1. Running the data collection scripts
-2. Checking the generated output files (`coupon.json`, `js/coupon.js`, `single.json`, `js/single.js`)
+2. Checking the generated output files (`coupon.json`, `public/coupon.js`, `single.json`, `public/single.js`)
 3. Verifying the frontend loads correctly
 
 **Run all data collection modes for testing:**
@@ -288,7 +288,7 @@ function loadFavorites() {
 ## Copilot Instructions
 
 ## Architecture Overview
-KCouper is a web app that collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `js/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites.
+KCouper is a web app that collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `public/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites.
 
 Key components:
 - **Backend**: `script/gatherer/coupon.py` converts API responses to Coupon objects with items/flavors.
@@ -309,7 +309,7 @@ Key components:
 - **Frontend Functions**: Use `prepareInitData()` for initial render, `filterCouponsWithNames()` for search (supports "搜尋所有選項" for variant matching).
 - **Error Handling**: API retries up to 10 times on 502; skip invalid coupons with logging.
 - **Naming**: Normalize names by stripping parentheses (e.g., `normalize_name` in `gatherer/coupon.py`).
-- **Storage**: Favorites in `localStorage` as Set; coupon data in `COUPON_DICT` from `js/coupon.js`.
+- **Storage**: Favorites in `localStorage` as Set; coupon data in `COUPON_DICT` from `public/coupon.js`.
 - **Style**: Python PEP 8 (100 char lines, snake_case); JS camelCase with JSDoc; HTML/CSS semantic with Bootstrap.
 
 ## Integration Points

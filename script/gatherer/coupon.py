@@ -140,7 +140,7 @@ def query_coupon(quick=False):
     init_delivery_info(session)
     coupon_by_code = {}
     if quick:
-        with open('js/coupon.js', 'r', encoding='utf-8') as fp:
+        with open('public/coupon.js', 'r', encoding='utf-8') as fp:
             content = fp.read()
         json_str = content[len('window.COUPON_DICT='):].strip()
         old_dict = json.loads(json_str)

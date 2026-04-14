@@ -4,7 +4,7 @@ applyTo: '**'
 # KCouper Development Instructions
 
 ## Architecture Overview
-KCouper is a web app that collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `js/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites.
+KCouper is a web app that collects KFC coupon data from Taiwan's official API and displays it in a searchable interface. The backend (Python) gathers data via `script/kfc.py`, processes it into structured JSON/JS files (`coupon.json`, `public/coupon.js`), and the frontend (HTML/JS/CSS) renders coupons with filtering, sorting, and favorites.
 
 Key components:
 - **Backend**: `script/gatherer/coupon.py` converts API responses to Coupon objects with items/flavors.
